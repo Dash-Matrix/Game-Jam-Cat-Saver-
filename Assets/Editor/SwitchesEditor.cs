@@ -16,15 +16,18 @@ public class SwitchesEditor : Editor
         {
             case Switches.SwitchType.Door:
                 switches.Gate = (Transform)EditorGUILayout.ObjectField("Gate", switches.Gate, typeof(Transform), true);
+                switches.SwitchPower = (SpriteRenderer)EditorGUILayout.ObjectField("Switch Power", switches.SwitchPower, typeof(SpriteRenderer), true);
                 switches.Power = EditorGUILayout.IntField("Power", switches.Power);
                 break;
 
             case Switches.SwitchType.Lift:
                 switches.Lift = (Transform)EditorGUILayout.ObjectField("Lift", switches.Lift, typeof(Transform), true);
+                switches.SwitchPower = (SpriteRenderer)EditorGUILayout.ObjectField("Switch Power", switches.SwitchPower, typeof(SpriteRenderer), true);
                 switches.Power = EditorGUILayout.IntField("Power", switches.Power);
                 break;
 
             case Switches.SwitchType.PowerBank:
+                switches.SwitchPower = (SpriteRenderer)EditorGUILayout.ObjectField("Switch Power", switches.SwitchPower, typeof(SpriteRenderer), true);
                 switches.Power = EditorGUILayout.IntField("Power", switches.Power);
                 break;
         }

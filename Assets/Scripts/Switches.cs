@@ -16,18 +16,38 @@ public class Switches : MonoBehaviour
 
     public Transform Gate;
     public Transform Lift;
+    public SpriteRenderer SwitchPower;
     public int Power;
 
-    public void Interacted(ref int battery)
+    public bool Interactable()
+    {
+        if (Power <= 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public void Interacted(ref int battery, ref SpriteRenderer batteryColor)
     {
         switch (switchType)
         {
             case SwitchType.Door:
-                if(battery >= Power)
+                if(battery >= Power && Power > 0)
                 {
                     battery -= Power;
+                    Power = 0;
+                    SwitchPower.DOColor(new Color(130, 255, 130), 0.5f);
                     HandleDoor();
                     Debug.Log("Powered Up The Gate");
+
+                    if(battery <= 0)
+                    {
+                        batteryColor.DOColor(new Color(100, 0, 0), 1);
+                    }
                 }
                 else
                 {
@@ -35,11 +55,18 @@ public class Switches : MonoBehaviour
                 }
                 break;
             case SwitchType.Lift:
-                if (battery >= Power)
+                if (battery >= Power && Power > 0)
                 {
                     battery -= Power;
+                    Power = 0;
+                    SwitchPower.DOColor(new Color(130, 255, 130), 0.5f);
                     HandleLift();
                     Debug.Log("Powered Up The Lift");
+
+                    if (battery <= 0)
+                    {
+                        batteryColor.DOColor(new Color(100, 0, 0), 1);
+                    }
                 }
                 else
                 {
@@ -50,6 +77,9 @@ public class Switches : MonoBehaviour
                 if(Power > 0)
                 {
                     battery += Power;
+                    Power = 0;
+                    SwitchPower.DOColor(new Color(100, 0, 0), 1);
+                    batteryColor.DOColor(Color.yellow, 1);
                     HandlePowerBank();
                     Debug.Log("Power Bank to Charged Up the Battery to : " + battery);
                 }
@@ -79,6 +109,5 @@ public class Switches : MonoBehaviour
     private void HandlePowerBank()
     {
         Debug.Log("PowerBank interaction handled.");
-        Power = 0;
     }
 }
