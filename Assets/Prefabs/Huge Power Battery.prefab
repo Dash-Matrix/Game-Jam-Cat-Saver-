@@ -94,9 +94,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5915120676012176013}
   - component: {fileID: 1750684907905110485}
+  - component: {fileID: 5669426268296748974}
   m_Layer: 0
   m_Name: Huge Power Battery
-  m_TagString: Battery
+  m_TagString: Switch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -143,3 +144,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4, y: 5}
   m_EdgeRadius: 0
+--- !u!114 &5669426268296748974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5915120676012176002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bad8544694ffb254cb3a36b46c91b16c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  switchType: 2
+  Gate: {fileID: 0}
+  Lift: {fileID: 0}
+  Power: 0

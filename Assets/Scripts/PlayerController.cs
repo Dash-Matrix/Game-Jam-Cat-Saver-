@@ -10,9 +10,15 @@ public class PlayerController : MonoBehaviour
 
     [Header("Interaction Settings")]
     public KeyCode interactKey = KeyCode.E;
+    public int BatteryPower;
+
+    private Switches switche;
+    private bool interactable = false;
 
     private Rigidbody2D rb;
     private bool isGrounded = true;
+
+    [SerializeField] private int catsRescued;
 
     private void Awake()
     {
@@ -41,10 +47,10 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInteraction()
     {
-        if (Input.GetKeyDown(interactKey) || Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(interactKey) && interactable && switche != null)
         {
             Debug.Log("Interact button pressed");
-            // Add interaction logic here
+            switche.Interacted(ref BatteryPower);
         }
     }
 
@@ -59,12 +65,25 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Entered trigger: " + other.gameObject.name);
-        // Add trigger enter logic here
+        if (other.CompareTag("Switch"))
+        {
+            switche = other.GetComponent<Switches>();
+            interactable = true;
+        }
+        else if (other.CompareTag("Cat"))
+        {
+            catsRescued++;
+            Destroy(other.gameObject);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         Debug.Log("Exited trigger: " + other.gameObject.name);
-        // Add trigger exit logic here
+        if (other.CompareTag("Switch"))
+        {
+            switche = null;
+            interactable = false;
+        }
     }
 }
