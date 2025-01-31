@@ -126,9 +126,20 @@ public class Switches : MonoBehaviour
                 {
                     battery += Power;
                     Power = 0;
-                    gameObject.SetActive(false);
+
                     batteryColor.DOColor(Color.yellow, 1);
-                    gameObject.SetActive(false);
+
+                    int childCount = transform.childCount;
+                    for (int i = 0; i < childCount; i++)
+                    {
+                        Transform firstLevelChild = transform.GetChild(i);
+                        int secondLevelCount = firstLevelChild.childCount;
+                        for (int j = 0; j < secondLevelCount; j++)
+                        {
+                            firstLevelChild.GetChild(j).gameObject.SetActive(false);
+                        }
+                    }
+
                     Debug.Log("Fireflies Charged Up the Battery to : " + battery);
                 }
                 else
