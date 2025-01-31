@@ -40,7 +40,7 @@ public class Switches : MonoBehaviour
         }
     }
 
-    public void Interacted(ref int battery, ref SpriteRenderer batteryColor)
+    public void Interacted(ref int battery, PlayerController pr)
     {
         switch (switchType)
         {
@@ -52,10 +52,7 @@ public class Switches : MonoBehaviour
                     LampLight();
                     Debug.Log("Powered Up The Lamp");
 
-                    if (battery <= 0)
-                    {
-                        batteryColor.DOColor(new Color(100, 0, 0), 1);
-                    }
+                    pr.UpdateBatteryStatus();
                 }
                 else
                 {
@@ -72,10 +69,7 @@ public class Switches : MonoBehaviour
                     HandleDoor();
                     Debug.Log("Powered Up The Gate");
 
-                    if(battery <= 0)
-                    {
-                        batteryColor.DOColor(new Color(100, 0, 0), 1);
-                    }
+                    pr.UpdateBatteryStatus();
                 }
                 else
                 {
@@ -92,10 +86,7 @@ public class Switches : MonoBehaviour
                     HandleLift();
                     Debug.Log("Powered Up The Lift");
 
-                    if (battery <= 0)
-                    {
-                        batteryColor.DOColor(new Color(100, 0, 0), 1);
-                    }
+                    pr.UpdateBatteryStatus();
                 }
                 else
                 {
@@ -106,15 +97,22 @@ public class Switches : MonoBehaviour
                 if(Power > 0)
                 {
                     battery += Power;
+
+                    if (battery > 5)
+                    {
+                        battery = 5;
+                    }
+
                     Power = 0;
                     BatteryOff.GetComponent<SpriteRenderer>().DOFade(1, 1);
                     BatteryOn.GetComponent<SpriteRenderer>().DOFade(0, 1).OnComplete(() =>
                     {
                         BatteryOn.SetActive(false);
                     });
-                    batteryColor.DOColor(Color.yellow, 1);
                     HandlePowerBank();
                     Debug.Log("Power Bank to Charged Up the Battery to : " + battery);
+
+                    pr.UpdateBatteryStatus();
                 }
                 else
                 {
@@ -125,9 +123,13 @@ public class Switches : MonoBehaviour
                 if (Power > 0)
                 {
                     battery += Power;
-                    Power = 0;
 
-                    batteryColor.DOColor(Color.yellow, 1);
+                    if(battery > 5)
+                    {
+                        battery = 5;
+                    }
+
+                    Power = 0;
 
                     int childCount = transform.childCount;
                     for (int i = 0; i < childCount; i++)
@@ -139,6 +141,8 @@ public class Switches : MonoBehaviour
                             firstLevelChild.GetChild(j).gameObject.SetActive(false);
                         }
                     }
+
+                    pr.UpdateBatteryStatus();
 
                     Debug.Log("Fireflies Charged Up the Battery to : " + battery);
                 }

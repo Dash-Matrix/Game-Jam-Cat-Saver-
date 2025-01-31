@@ -1,6 +1,9 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,8 +16,10 @@ public class PlayerController : MonoBehaviour
     public GameObject interactionPopup;
     public KeyCode interactKey = KeyCode.E;
     public SpriteRenderer BatteryColor;
+    [Range(0, 5)]
     public int BatteryPower;
     private bool flipped = false;
+    public Slider BatteryStored;
 
     private Switches switche;
     private bool interactable = false;
@@ -23,10 +28,12 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded = true;
 
     [SerializeField] private int catsRescued;
+    public TextMeshProUGUI CatsRescuedText;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        UpdateBatteryStatus();
     }
 
     private void Update()
@@ -34,7 +41,10 @@ public class PlayerController : MonoBehaviour
         HandleMovement();
         HandleInteraction();
     }
-
+    public void UpdateBatteryStatus()
+    {
+        BatteryStored.DOValue(BatteryPower, 0.2f);
+    }
     private void HandleMovement()
     {
         // Horizontal movement
@@ -65,7 +75,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(interactKey) && interactable && switche != null)
         {
             Debug.Log("Interact button pressed");
-            switche.Interacted(ref BatteryPower, ref BatteryColor);
+            switche.Interacted(ref BatteryPower, this);
             interactionPopup.SetActive(false);
         }
     }
@@ -90,6 +100,7 @@ public class PlayerController : MonoBehaviour
         else if (other.CompareTag("Cat"))
         {
             catsRescued++;
+            CatsRescuedText.text = catsRescued.ToString();
             Destroy(other.gameObject);
         }
     }
