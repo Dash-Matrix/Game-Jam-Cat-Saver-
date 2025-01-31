@@ -7,16 +7,25 @@ public class Switches : MonoBehaviour
 {
     public enum SwitchType
     {
+        Lamp,
         Door,
         Lift,
-        PowerBank
+        PowerBank,
+        FireFlies
     }
 
     public SwitchType switchType;
 
+    public GameObject LampOn;
+    public GameObject LampOff;
     public Transform Gate;
+    public Vector2 GateOpen;
     public Transform Lift;
-    public SpriteRenderer SwitchPower;
+    public float LiftUp;
+    public GameObject SwitchPowerOn;
+    public GameObject SwitchPowerOff;
+    public GameObject BatteryOn;
+    public GameObject BatteryOff;
     public int Power;
 
     public bool Interactable()
@@ -35,12 +44,31 @@ public class Switches : MonoBehaviour
     {
         switch (switchType)
         {
+            case SwitchType.Lamp:
+                if (battery >= Power && Power > 0)
+                {
+                    battery -= Power;
+                    Power = 0;
+                    LampLight();
+                    Debug.Log("Powered Up The Lamp");
+
+                    if (battery <= 0)
+                    {
+                        batteryColor.DOColor(new Color(100, 0, 0), 1);
+                    }
+                }
+                else
+                {
+                    Debug.Log("Not Enough Battery to Power Up Lamp");
+                }
+                break;
             case SwitchType.Door:
                 if(battery >= Power && Power > 0)
                 {
                     battery -= Power;
                     Power = 0;
-                    SwitchPower.DOColor(new Color(130, 255, 130), 0.5f);
+                    SwitchPowerOn.SetActive(true);
+                    SwitchPowerOff.SetActive(false);
                     HandleDoor();
                     Debug.Log("Powered Up The Gate");
 
@@ -59,7 +87,8 @@ public class Switches : MonoBehaviour
                 {
                     battery -= Power;
                     Power = 0;
-                    SwitchPower.DOColor(new Color(130, 255, 130), 0.5f);
+                    SwitchPowerOn.SetActive(true);
+                    SwitchPowerOff.SetActive(false);
                     HandleLift();
                     Debug.Log("Powered Up The Lift");
 
@@ -78,10 +107,29 @@ public class Switches : MonoBehaviour
                 {
                     battery += Power;
                     Power = 0;
-                    SwitchPower.DOColor(new Color(100, 0, 0), 1);
+                    BatteryOff.GetComponent<SpriteRenderer>().DOFade(1, 1);
+                    BatteryOn.GetComponent<SpriteRenderer>().DOFade(0, 1).OnComplete(() =>
+                    {
+                        BatteryOn.SetActive(false);
+                    });
                     batteryColor.DOColor(Color.yellow, 1);
                     HandlePowerBank();
                     Debug.Log("Power Bank to Charged Up the Battery to : " + battery);
+                }
+                else
+                {
+                    Debug.Log("Not Enough Power Bank Battery to Charge up the Battery");
+                }
+                break;
+            case SwitchType.FireFlies:
+                if (Power > 0)
+                {
+                    battery += Power;
+                    Power = 0;
+                    gameObject.SetActive(false);
+                    batteryColor.DOColor(Color.yellow, 1);
+                    gameObject.SetActive(false);
+                    Debug.Log("Fireflies Charged Up the Battery to : " + battery);
                 }
                 else
                 {
@@ -94,16 +142,21 @@ public class Switches : MonoBehaviour
         }
     }
 
+    private void LampLight()
+    {
+        Debug.Log("Lamp interaction handled.");
+        LampOn.SetActive(true);
+    }
     private void HandleDoor()
     {
         Debug.Log("Door interaction handled.");
-        Gate.DOLocalMoveY(3.5f, 0.5f);
+        Gate.DOLocalMove(GateOpen, 0.5f);
     }
 
     private void HandleLift()
     {
         Debug.Log("Lift interaction handled.");
-        Lift.DOLocalMoveY(5.5f, 2f).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
+        Lift.DOLocalMoveY(LiftUp, 2f).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
     }
 
     private void HandlePowerBank()

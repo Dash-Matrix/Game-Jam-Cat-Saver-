@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 54cacb2d837167a4599b13f15dad1339
+guid: cf89975175029324c8ea78adde39fc11
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -141,22 +141,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Stage_1_Environment_0
+      name: Fireflies_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1440
-        height: 373
+        x: 139
+        y: 311
+        width: 78
+        height: 85
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d226947c7f24f5c45acd0afbb73c0f56
-      internalID: -1550897316
+      spriteID: 7fea8ad4847f0464bb9b0a7e5e389332
+      internalID: -1828043447
       vertices: []
       indices: 
       edges: []
@@ -170,11 +170,9 @@ TextureImporter:
     indices: 
     edges: []
     weights: []
-    secondaryTextures:
-    - texture: {fileID: 2800000, guid: e248f5be04761e045ac37af6be9d81af, type: 3}
-      name: _NormalMap
+    secondaryTextures: []
     nameFileIdTable:
-      Stage_1_Environment_0: -1550897316
+      Fireflies_0: -1828043447
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

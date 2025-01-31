@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 54cacb2d837167a4599b13f15dad1339
+guid: 6d4f80ee701c29c4fb82659b00069639
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -141,13 +141,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Stage_1_Environment_0
+      name: Power_OFF_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1440
-        height: 373
+        x: 218
+        y: 50
+        width: 42
+        height: 133
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,8 +155,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d226947c7f24f5c45acd0afbb73c0f56
-      internalID: -1550897316
+      spriteID: f20c6c1676496584ca117402d08ff180
+      internalID: -367607243
       vertices: []
       indices: 
       edges: []
@@ -171,10 +171,10 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures:
-    - texture: {fileID: 2800000, guid: e248f5be04761e045ac37af6be9d81af, type: 3}
+    - texture: {fileID: 2800000, guid: 63c2fbe7eb39f624bb86abf01953fb3a, type: 3}
       name: _NormalMap
     nameFileIdTable:
-      Stage_1_Environment_0: -1550897316
+      Power_OFF_0: -367607243
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
